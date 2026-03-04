@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Midnight Firearms | Ottawa Region Scripts</title>
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --card:#111826;
+      --muted:rgba(255,255,255,.65);
+      --text:rgba(255,255,255,.92);
+      --border:rgba(255,255,255,.10);
+      --good:#4cff8a;
+      --warn:#ffd15a;
+      --bad:#ff5a5a;
+      --link:#78beff;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: var(--sans);
+      background: radial-gradient(1200px 600px at 20% 0%, rgba(120,190,255,.18), transparent 60%),
+                  radial-gradient(800px 500px at 90% 10%, rgba(76,255,138,.10), transparent 60%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    .wrap{ max-width: 980px; margin: 42px auto; padding: 0 18px; }
+    .hero{
+      border: 1px solid var(--border);
+      background: rgba(17,24,38,.70);
+      border-radius: 18px;
+      padding: 22px 22px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.45);
+      backdrop-filter: blur(8px);
+    }
+    h1{ margin:0; font-size: 26px; letter-spacing: .2px; }
+    .sub{ color: var(--muted); margin-top: 6px; }
+    .chips{ display:flex; flex-wrap:wrap; gap:10px; margin-top: 14px; }
+    .chip{
+      border: 1px solid var(--border);
+      padding: 7px 10px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 12px;
+      background: rgba(255,255,255,.05);
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    @media (max-width: 860px){ .grid{ grid-template-columns:1fr; } }
+    .card{
+      border: 1px solid var(--border);
+      background: rgba(17,24,38,.55);
+      border-radius: 16px;
+      padding: 18px 18px;
+    }
+    h2{ margin: 0 0 10px 0; font-size: 18px; }
+    h3{ margin: 18px 0 8px 0; font-size: 15px; }
+    p{ margin: 10px 0; color: rgba(255,255,255,.86); }
+    ul{ margin: 10px 0; padding-left: 18px; color: rgba(255,255,255,.86); }
+    li{ margin: 7px 0; }
+    code, pre{
+      font-family: var(--mono);
+      font-size: 12.5px;
+    }
+    pre{
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--border);
+      padding: 12px 12px;
+      border-radius: 14px;
+      overflow:auto;
+    }
+    a{ color: var(--link); text-decoration: none; }
+    a:hover{ text-decoration: underline; }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.05);
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .good{ color: var(--good); border-color: rgba(76,255,138,.25); background: rgba(76,255,138,.10); }
+    .warn{ color: var(--warn); border-color: rgba(255,209,90,.25); background: rgba(255,209,90,.10); }
+    .bad{ color: var(--bad); border-color: rgba(255,90,90,.25); background: rgba(255,90,90,.10); }
+    .muted{ color: var(--muted); }
+    .footer{
+      margin-top: 16px;
+      color: rgba(255,255,255,.50);
+      font-size: 12px;
+      text-align:center;
+    }
+    .hr{ height:1px; background: rgba(255,255,255,.10); margin: 14px 0; }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Midnight Firearms</h1>
+      <div class="sub">Multi-framework firearms access gate (Discord role + DB overrides) with an admin panel.</div>
+
+      <div class="chips">
+        <div class="chip"><b>Author:</b> MidnightMTB</div>
+        <div class="chip"><b>Publisher:</b> Ottawa Region Scripts</div>
+        <div class="chip"><b>Frameworks:</b> QBCore, Qbox, ESX, Standalone</div>
+        <div class="chip"><b>Inventories:</b> ox_inventory, qb/ps/lj/qs, others</div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2>What it does</h2>
+        <ul>
+          <li>Blocks firearm usage unless a player has a specific Discord role (ex: Alpha Civ).</li>
+          <li>Supports persistent overrides in MySQL: <span class="badge good">Allow</span> or <span class="badge bad">Deny</span>.</li>
+          <li>Includes an admin panel (NUI) for viewing players and applying overrides.</li>
+          <li>Framework-agnostic enforcement (works even if your inventory is different).</li>
+        </ul>
+
+        <h3>Dependencies</h3>
+        <ul>
+          <li><b>ox_lib</b></li>
+          <li><b>oxmysql</b></li>
+        </ul>
+
+        <h3>Recommended</h3>
+        <ul>
+          <li>Keep your server artifacts updated for stable HTTPS requests to Discord.</li>
+          <li>Use a dedicated Discord bot just for server automation/security.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Install (Quick)</h2>
+        <ol>
+          <li>Drop the resource folder into your server resources.</li>
+          <li>Import SQL: <code>DB.sql</code></li>
+          <li>Add ensures in <code>server.cfg</code> (order matters).</li>
+          <li>Configure <code>config.lua</code> (Guild ID, Role ID, Bot Token).</li>
+          <li>Give yourself ACE permission for the panel/admin actions.</li>
+        </ol>
+
+        <h3>server.cfg ensure order</h3>
+        <pre>ensure oxmysql
+ensure ox_lib
+ensure midnight_firearms</pre>
+
+        <h3>ACE permission</h3>
+        <pre>add_ace group.admin midnight_firearms.admin allow</pre>
+
+        <p class="muted">Panel command: <code>/mf_panel</code> (default). Keybind: <code>F7</code> (default).</p>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:14px;">
+      <h2>Discord Bot Setup</h2>
+      <p>This script checks guild member roles through the Discord API. That means you need a bot token.</p>
+
+      <h3>1) Create an application & bot</h3>
+      <ul>
+        <li>Go to the Discord Developer Portal.</li>
+        <li>Create a <b>New Application</b>.</li>
+        <li>Open the <b>Bot</b> section and click <b>Add Bot</b>.</li>
+      </ul>
+
+      <h3>2) Copy the Bot Token</h3>
+      <ul>
+        <li>In the Bot page, click <b>Reset Token</b> (if needed), then copy the token.</li>
+        <li>Paste into <code>config.lua</code>:</li>
+      </ul>
+
+      <pre>Config.BotToken = 'YOUR_BOT_TOKEN_HERE'</pre>
+
+
+      <h3>3) Invite the bot to your server</h3>
+      <ul>
+        <li>In the Developer Portal, go to <b>OAuth2 → URL Generator</b>.</li>
+        <li>Select scope: <b>bot</b></li>
+        <li>Select permissions: minimal is fine, but it must be in the guild.</li>
+        <li>Open the generated URL and invite the bot to your Discord server.</li>
+      </ul>
+
+      <h3>4) Get Guild ID and Role ID</h3>
+      <ul>
+        <li>Enable Developer Mode in Discord (Settings → Advanced).</li>
+        <li>Right-click your server → <b>Copy ID</b> → paste into <code>Config.GuildId</code>.</li>
+        <li>Right-click the role → <b>Copy ID</b> → paste into <code>Config.AllowedRoleId</code>.</li>
+      </ul>
+
+      <pre>Config.GuildId = 'YOUR_GUILD_ID'
+Config.AllowedRoleId = 'YOUR_ROLE_ID'</pre>
+    </div>
+
+    <div class="card" style="margin-top:14px;">
+      <h2>Common Errors</h2>
+
+      <p><span class="badge bad">401 Unauthorized</span> Bot token is invalid/misformatted.</p>
+      <ul>
+        <li>Re-copy the bot token from the Developer Portal.</li>
+        <li>Make sure you pasted the bot token, not the client secret.</li>
+        <li>Restart the resource or server after changes.</li>
+      </ul>
+
+      <p><span class="badge bad">403 Forbidden</span> Bot lacks access or you’re hitting a permission/intents issue.</p>
+      <ul>
+        <li>Ensure the bot is invited to the correct guild.</li>
+        <li>Verify you’re using the correct guild ID and role ID.</li>
+      </ul>
+
+      <p><span class="badge warn">429 Rate Limited</span> Too many role checks too fast.</p>
+      <ul>
+        <li>Increase <code>Config.RefreshSeconds</code>.</li>
+        <li>Avoid spamming refresh on many players at once.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="margin-top:14px;">
+      <h2>License (Ottawa Region Scripts)</h2>
+
+      <pre>Ottawa Region Scripts License
+Copyright (c) 2026 MidnightMTB
+
+This software is developed and distributed by MidnightMTB under the Ottawa Region Scripts brand.
+
+1. Permitted Use
+You are permitted to install and use this resource on one or more FiveM servers that you own or manage.
+
+2. Modifications
+You may modify the script for personal server use only.
+Modified versions may NOT be redistributed.
+
+3. Redistribution
+You may NOT redistribute this resource in any form, including but not limited to:
+- Uploading to other websites or forums
+- Sharing the resource with other servers
+- Including the resource in server packs or bundles
+
+4. Resale
+You may NOT sell, sublicense, or commercially redistribute this resource or any modified version of it.
+
+5. Ownership
+All rights to the source code, design, and intellectual property remain with the original author: MidnightMTB.
+
+6. Liability
+This software is provided "as-is" without warranty of any kind.
+The author is not responsible for any damages, server issues, or data loss resulting from use of this software.
+
+7. Removal of License
+Removing or altering this license file or author credit within the resource is prohibited.
+
+By using this software you agree to the terms above.</pre>
+    </div>
+
+    <div class="footer">
+      Midnight Firearms | Ottawa Region Scripts • Author: MidnightMTB
+    </div>
+  </div>
+</body>
+</html>

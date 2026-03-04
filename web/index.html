@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Midnight Firearms Panel</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app" class="app hidden">
+    <div class="topbar">
+      <div class="brand">
+        <div class="dot"></div>
+        <div class="txt">
+          <div class="title" id="brandTitle">Ottawa Region Scripts</div>
+          <div class="sub">Midnight Firearms Admin Panel</div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn" id="btnRefresh">Refresh</button>
+        <button class="btn danger" id="btnClose">Close</button>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="toolbar">
+        <input id="search" class="input" placeholder="Search by name or discord ID..." />
+        <div class="pill" id="countPill">0 players</div>
+      </div>
+
+      <div class="tableWrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Player</th>
+              <th>Discord</th>
+              <th>Status</th>
+              <th>Mode</th>
+              <th>Override</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+
+      <div class="hint">
+        Tip: Overrides apply by Discord ID. Discord checks need a valid bot token, or you’ll see everyone as locked.
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
